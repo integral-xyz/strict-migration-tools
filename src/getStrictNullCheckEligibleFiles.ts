@@ -109,7 +109,8 @@ export async function getCheckedFiles(tsconfigPath: string, srcRoot: string): Pr
 
   await Promise.all(tsconfig.include.map(file => {
     return new Promise<void>((resolve, reject) => {
-      glob(path.join(srcRoot, file), (err, files) => {
+      const pattern = /.*\..{1,5}/.test(file) ? file : path.join(file, '/**/*');
+      glob(path.join(srcRoot, pattern), (err, files) => {
         if (err) {
           return reject(err)
         }
@@ -126,7 +127,8 @@ export async function getCheckedFiles(tsconfigPath: string, srcRoot: string): Pr
 
   await Promise.all(tsconfig.exclude.map(file => {
     return new Promise<void>((resolve, reject) => {
-      glob(path.join(srcRoot, file), (err, files) => {
+      const pattern = /.*\..{1,5}/.test(file) ? file : path.join(file, '/**/*');
+      glob(path.join(srcRoot, pattern), (err, files) => {
         if (err) {
           return reject(err)
         }
