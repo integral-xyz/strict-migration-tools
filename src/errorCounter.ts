@@ -43,11 +43,11 @@ export class ErrorCounter {
       this.tscProcess.stdout.on('data', listener)
 
       // Create a new config with the file removed from excludes
-      const exclude = new Set(this.originalConfig.exclude)
-      exclude.delete('./' + relativeFilePath)
+      const files = new Set(this.originalConfig.files)
+      files.add('./' + relativeFilePath)
       fs.writeFileSync(this.tsconfigCopyPath, JSON.stringify({
         ...this.originalConfig,
-        exclude: [...exclude],
+        files: [...files],
       }, null, 2))
     })
   }
