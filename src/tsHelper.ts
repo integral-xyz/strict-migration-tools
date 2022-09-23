@@ -26,7 +26,7 @@ export function getImportsForFile(file: string, srcRoot: string) {
     // remove svg, css imports
     .filter(fileName => !fileName.endsWith(".css") && !fileName.endsWith(".svg") && !fileName.endsWith(".json"))
     .filter(fileName => !fileName.endsWith(".js") && !fileName.endsWith(".jsx")) // Assume .js/.jsx imports have a .d.ts available
-    .filter(x => /\//.test(x)) // remove node modules (the import must contain '/')
+    .filter(x => /\//.test(x) && !/^(@|firebase-admin|fireblocks-sdk|node:fs)/.test(x)) // remove node modules (the import must contain '/')
     .map(fileName => {
       if (/(^\.\/)|(^\.\.\/)/.test(fileName)) {
         return path.join(path.dirname(file), fileName)
