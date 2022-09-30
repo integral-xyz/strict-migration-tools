@@ -21,7 +21,7 @@ function hasUncheckedImport(file: string, importsTracker: ImportTracker, checked
 
 export function forEachFileInSrc(srcRoot: string): Promise<string[]> {
   return new Promise((resolve, reject) => {
-    glob(`${srcRoot}/!(dist|node_modules)/**/*.ts?(x)`, (err, files) => {
+    glob(`${srcRoot}/!(dist|distdb|node_modules)/**/*.ts?(x)`, (err, files) => {
       if (err) {
         return reject(err)
       }
